@@ -5,6 +5,8 @@
 ---
 
 ![FundingSense Architecture](image.png)
+![Architecture](image-1.png)
+![Flow] (flow.png)
 
 ## Real-Time Intelligence Core
 
