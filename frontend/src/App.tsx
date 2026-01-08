@@ -17,7 +17,6 @@ import Settings from "./pages/settings-page";
 import Results from "./pages/result-page";
 import IntelligenceHub from "./pages/intelligence-hub";
 import IntelligenceReport from "./pages/intelligence-report";
-import VideoAcademy from "./pages/video-academy";
 import NotFound from "./pages/not-found";
 import ChatPage from "./pages/chat-page";
 
@@ -43,7 +42,6 @@ const App = () => (
 
               <Route path="/intelligence-hub" element={<IntelligenceHub />} />
               <Route path="/intelligence-hub/report/:id" element={<IntelligenceReport />} />
-              <Route path="/academy" element={<VideoAcademy />} />
 
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analyze" element={<Analyze />} />
