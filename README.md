@@ -111,6 +111,27 @@ npm run dev
 ### 3. Sync Intelligence
 Go to **Settings** in the dashboard and click **"Force Intelligence Sync"** to populate your local database with the latest startup market data.
 
+---
+
+## Test Credentials & Demo Mode
+
+### Quick Access (No Login Required)
+You can explore the full application without creating an account by clicking **"View Demo Dashboard"** on the landing page. This demo mode provides access to all features including:
+- Analysis history and statistics
+- Fraud detection tools
+- AI Chat Assistant
+- Video Academy
+- Intelligence Hub
+
+### Test Account (Optional)
+If you prefer to test with authentication:
+- **Email**: `demo@fundingsense.ai`
+- **Password**: `DemoUser2024!`
+
+**Note**: In production deployment, authentication is handled via Supabase. For local testing without Supabase setup, the app automatically allows demo access.
+
+---
+
 ### 4. Docker Setup (Recommended)
 This approach runs both the frontend and backend services in isolated containers.
 

@@ -216,6 +216,12 @@ export default function Landing() {
                   </Button>
                 </Link>
 
+                <Link to="/dashboard" className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto h-12 px-8 rounded-xl border-primary/20 bg-primary/5 hover:bg-primary/10 text-primary text-base font-medium backdrop-blur-sm transition-all active:scale-95">
+                    View Demo Dashboard
+                  </Button>
+                </Link>
+
               </div>
             </motion.div>
           </div>
