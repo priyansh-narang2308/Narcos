@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     YOUTUBE_API_KEY: Optional[str] = None
     ENABLE_VECTOR_DB: bool = True
 
-    ALLOWED_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173"
+    ALLOWED_ORIGINS: str = "*"
 
     SUPABASE_URL: Optional[str] = None
     SUPABASE_KEY: Optional[str] = None
