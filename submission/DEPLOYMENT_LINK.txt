@@ -1,1 +1,2 @@
-Deployment URL: https://funding-sense.onrender.com
+Deployment URL (Backend): https://funding-sense.onrender.com
+Deployment URL (Frontend): https://funding-sense.vercel.app/

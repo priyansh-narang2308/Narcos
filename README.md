@@ -26,6 +26,11 @@ FundingSense has evolved from a static RAG app into a **Living Intelligence Engi
 *   **Real-Sync Alerts**: Instant visual alerts for Market Intelligence, Academy Updates, and Analysis Completion.
 *   **Glassmorphic Pulse UI**: Persistent bell icon with live updates—never miss a funding trend or a finished report.
 
+### SafeGuard Fraud Detection
+*   **AI-Forensic Background Analysis**: Checks startups and investors against real-time regulatory databases, scam reports, and news.
+*   **Risk Scoring Engine**: Assigns a 0-100 credibility score with explicit red flags (e.g., "Fake Investor", "Past Lawsuits").
+*   **Integrated Warning System**: Automatically penalizes analysis scores if the entity is flagged as high-risk.
+
 ---
 
 ## Core AI Innovations
