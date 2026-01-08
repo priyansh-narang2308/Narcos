@@ -19,6 +19,7 @@ import IntelligenceHub from "./pages/intelligence-hub";
 import IntelligenceReport from "./pages/intelligence-report";
 import NotFound from "./pages/not-found";
 import ChatPage from "./pages/chat-page";
+import FraudDetection from "./pages/fraud-detection";
 
 import { LanguageProvider } from "./contexts/LanguageContext";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -45,6 +46,7 @@ const App = () => (
 
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/analyze" element={<Analyze />} />
+              <Route path="/fraud-detection" element={<FraudDetection />} />
               <Route path="/chat" element={<ChatPage />} />
               <Route path="/results/:id" element={<Results />} />
               <Route path="/evidence" element={<Evidence />} />

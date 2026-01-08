@@ -46,12 +46,13 @@ export default function Results() {
 
         setData({
           startup: {
-            name: "Analysis Result",
+            name: analysis.startup_name || "Analysis Result",
             description: analysis.startup_summary,
             sector: analysis.metadata.sector || "N/A",
             stage: analysis.metadata.stage || "N/A",
             geography: analysis.metadata.geography || "N/A",
           },
+          fraud: analysis.fraud_alert,
           confidence: analysis.confidence_indicator,
           score: analysis.overall_score,
           investors: (analysis.recommended_investors || []).map((inv: any, index: number) => ({
@@ -159,67 +160,96 @@ export default function Results() {
                 Expert Panel View
               </Button>
             </Link>
-            
+
           </div>
         </div>
 
 
-        <div className="card-elevated overflow-hidden border-none shadow-glow bg-card/40 backdrop-blur-xl relative group rounded-[2.5rem]">
-          <div className="absolute inset-0 bg-primary/[0.02] pointer-events-none group-hover:bg-primary/[0.04] transition-colors" />
-          <div className="bg-gradient-to-r from-primary to-emerald-500 p-1 h-1.5 w-full" />
-          <div className="p-8 md:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10 bg-transparent relative z-10">
-            <div className="flex items-start gap-8 max-w-3xl">
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-[2rem] bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center shrink-0 shadow-2xl shadow-primary/30 relative animate-slide-up">
-                <div className="absolute inset-0 bg-white/20 rounded-[2rem] blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-                <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-primary-foreground relative z-10" />
-              </div>
-              <div className="space-y-4">
-                <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="text-3xl font-black text-foreground tracking-tight uppercase">
-                    {data.startup.name}
+        <div className="flex flex-col gap-6">
+          {data.fraud?.status === "risk" && (
+            <div className="bg-destructive/10 border-2 border-destructive/20 p-8 rounded-[2rem] relative overflow-hidden animate-pulse">
+              <div className="absolute inset-0 bg-destructive/5" />
+              <div className="relative z-10 flex items-start gap-6">
+                <div className="p-4 bg-destructive text-white rounded-2xl shadow-xl">
+                  <XCircle className="w-10 h-10" />
+                </div>
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-black text-destructive uppercase tracking-tight">
+                    Critical Fraud Warning
                   </h2>
-                  <Badge className="bg-primary/20 text-primary border-none font-black text-[10px] uppercase py-1 shadow-inner rounded-xl">
-                    Analysis Completed
-                  </Badge>
-                </div>
-                <div className="prose prose-sm dark:prose-invert max-w-none text-foreground/70 font-bold leading-relaxed bg-muted/30 p-6 rounded-2xl border border-border/40">
-                  <ReactMarkdown>{data.startup.description}</ReactMarkdown>
-                </div>
-                <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <Badge variant="secondary" className="px-4 py-2 text-xs font-bold rounded-xl border border-border/20">
-                    <Building2 className="w-3.5 h-3.5 mr-2 text-primary" />
-                    {data.startup.sector}
-                  </Badge>
-                  <Badge variant="secondary" className="px-4 py-2 text-xs font-bold rounded-xl border border-border/20">
-                    <Target className="w-3.5 h-3.5 mr-2 text-primary" />
-                    {data.startup.stage}
-                  </Badge>
-                  <Badge variant="secondary" className="px-4 py-2 text-xs font-bold rounded-xl border border-border/20">
-                    <MapPin className="w-3.5 h-3.5 mr-2 text-primary" />
-                    {data.startup.geography}
-                  </Badge>
+                  <p className="font-bold text-foreground/80">
+                    {data.fraud.summary}
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {data.fraud.flags.map((flag: string, i: number) => (
+                      <Badge key={i} variant="destructive" className="font-bold">
+                        {flag}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
+          )}
 
-            <div className="flex flex-row lg:flex-col items-center lg:items-center justify-center gap-8 bg-muted/60 p-10 rounded-[2.5rem] border border-border/40 backdrop-blur-md min-w-[200px] shadow-inner">
-              <div className="text-center">
-                <p className="text-[10px] font-black text-muted-foreground mb-1 uppercase tracking-widest opacity-60">
-                  Fit Score
-                </p>
-                <div className="relative inline-block">
-                  <p className="text-7xl font-black text-foreground tracking-tighter leading-none">
-                    {data.score}<span className="text-3xl text-primary opacity-50">%</span>
-                  </p>
+          <div className="card-elevated overflow-hidden border-none shadow-glow bg-card/40 backdrop-blur-xl relative group rounded-[2.5rem]">
+            <div className="absolute inset-0 bg-primary/[0.02] pointer-events-none group-hover:bg-primary/[0.04] transition-colors" />
+            <div className={`p-1 h-1.5 w-full ${data.fraud?.status === 'risk' ? 'bg-destructive' : 'bg-gradient-to-r from-primary to-emerald-500'}`} />
+            <div className="p-8 md:p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10 bg-transparent relative z-10">
+              <div className="flex items-start gap-8 max-w-3xl">
+                {/* ... (Start of Header Content) ... */}
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-[2rem] bg-gradient-to-br from-primary to-emerald-600 flex items-center justify-center shrink-0 shadow-2xl shadow-primary/30 relative animate-slide-up">
+                  <div className="absolute inset-0 bg-white/20 rounded-[2rem] blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <TrendingUp className="w-8 h-8 md:w-10 md:h-10 text-primary-foreground relative z-10" />
+                </div>
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h2 className="text-3xl font-black text-foreground tracking-tight uppercase">
+                      {data.startup.name}
+                    </h2>
+                    <Badge className="bg-primary/20 text-primary border-none font-black text-[10px] uppercase py-1 shadow-inner rounded-xl">
+                      Analysis Completed
+                    </Badge>
+                  </div>
+                  <div className="prose prose-sm dark:prose-invert max-w-none text-foreground/70 font-bold leading-relaxed bg-muted/30 p-6 rounded-2xl border border-border/40">
+                    <ReactMarkdown>{data.startup.description}</ReactMarkdown>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <Badge variant="secondary" className="px-4 py-2 text-xs font-bold rounded-xl border border-border/20">
+                      <Building2 className="w-3.5 h-3.5 mr-2 text-primary" />
+                      {data.startup.sector}
+                    </Badge>
+                    <Badge variant="secondary" className="px-4 py-2 text-xs font-bold rounded-xl border border-border/20">
+                      <Target className="w-3.5 h-3.5 mr-2 text-primary" />
+                      {data.startup.stage}
+                    </Badge>
+                    <Badge variant="secondary" className="px-4 py-2 text-xs font-bold rounded-xl border border-border/20">
+                      <MapPin className="w-3.5 h-3.5 mr-2 text-primary" />
+                      {data.startup.geography}
+                    </Badge>
+                  </div>
                 </div>
               </div>
-              <Badge
-                variant={getConfidenceColor(data.confidence)}
-                className="text-[11px] px-6 py-2.5 shadow-lg border-none font-black uppercase tracking-widest animate-pulse rounded-xl"
-              >
-                {data.confidence === "high" && <CheckCircle className="w-3.5 h-3.5 mr-2" />}
-                {data.confidence} Confidence
-              </Badge>
+
+              <div className="flex flex-row lg:flex-col items-center lg:items-center justify-center gap-8 bg-muted/60 p-10 rounded-[2.5rem] border border-border/40 backdrop-blur-md min-w-[200px] shadow-inner">
+                <div className="text-center">
+                  <p className="text-[10px] font-black text-muted-foreground mb-1 uppercase tracking-widest opacity-60">
+                    Fit Score
+                  </p>
+                  <div className="relative inline-block">
+                    <p className={`text-7xl font-black tracking-tighter leading-none ${data.fraud?.status === 'risk' ? 'text-destructive' : 'text-foreground'}`}>
+                      {data.score}<span className="text-3xl opacity-50">%</span>
+                    </p>
+                  </div>
+                </div>
+                <Badge
+                  variant={getConfidenceColor(data.confidence)}
+                  className="text-[11px] px-6 py-2.5 shadow-lg border-none font-black uppercase tracking-widest animate-pulse rounded-xl"
+                >
+                  {data.confidence === "high" && <CheckCircle className="w-3.5 h-3.5 mr-2" />}
+                  {data.confidence} Confidence
+                </Badge>
+              </div>
             </div>
           </div>
         </div>

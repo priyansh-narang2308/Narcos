@@ -205,23 +205,7 @@ export default function Dashboard() {
                 </div>
               </Link>
 
-              <Link to="/academy" className="block group">
-                <div className="bg-card border border-border/50 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-primary/20 transition-all">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-muted text-foreground flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all">
-                      <PlayCircle className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-foreground group-hover:text-primary transition-colors mb-1">
-                        Video Academy
-                      </h3>
-                      <p className="text-muted-foreground text-xs leading-relaxed">
-                        Watch expert talks and official startup webinars for real-world advice.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
+
 
               <div className="bg-gradient-to-br from-primary/5 to-emerald-500/5 border border-primary/10 rounded-3xl p-8 relative overflow-hidden">
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />

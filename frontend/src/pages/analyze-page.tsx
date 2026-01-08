@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Input } from "../components/ui/input";
 import {
   Select,
   SelectContent,
@@ -66,6 +67,7 @@ const generationLanguages = [
 
 export default function Analyze() {
   const { language: currentLanguage } = useLanguage();
+  const [startupName, setStartupName] = useState("");
   const [description, setDescription] = useState("");
   const [sector, setSector] = useState("");
   const [stage, setStage] = useState("");
@@ -92,6 +94,7 @@ export default function Analyze() {
 
     try {
       const result = await analyzeStartup({
+        startup_name: startupName || "Unnamed Project",
         startup_description: description,
         sector: sector,
         funding_stage: stage,
@@ -145,6 +148,18 @@ export default function Analyze() {
             >
               <div className="bg-card border border-border/50 rounded-2xl p-6 md:p-8 shadow-sm space-y-8">
                 <div className="space-y-4">
+                  <div className="space-y-3">
+                    <Label htmlFor="startupName" className="text-lg font-bold">Startup Name (Optional)</Label>
+                    <Input
+                      id="startupName"
+                      placeholder="e.g. NextGen AI"
+                      value={startupName}
+                      onChange={(e) => setStartupName(e.target.value)}
+                      className="h-12 rounded-xl border-border/60 text-lg font-medium"
+                    />
+                    <p className="text-xs text-muted-foreground">Provide the name to verify its credibility against fraud databases.</p>
+                  </div>
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Label htmlFor="description" className="text-lg font-bold">

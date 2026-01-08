@@ -3,6 +3,7 @@ const API_BASE_URL =
   import.meta.env.VITE_API_URL || "http://localhost:8000/api/v1";
 
 export interface AnalysisRequest {
+  startup_name?: string;
   startup_description: string;
   sector: string;
   funding_stage: string;
@@ -45,9 +46,16 @@ export interface VideoIntelligence {
 export interface AnalysisResponse {
   analysis_id: string;
   user_id?: string;
+  startup_name?: string;
   startup_summary: string;
   confidence_indicator: "low" | "medium" | "high";
   overall_score: number;
+  fraud_alert?: {
+    status: string;
+    risk_score: number;
+    flags: string[];
+    summary: string;
+  };
   recommended_investors: InvestorRecommendation[];
   why_fits: string[];
   why_does_not_fit: string[];
@@ -249,5 +257,38 @@ export const syncVideoAcademy = async (userId?: string): Promise<any> => {
 export const resetVideoAcademy = async (userId: string): Promise<any> => {
   const response = await fetch(`${API_BASE_URL}/academy/reset?user_id=${userId}`, { method: "POST" });
   if (!response.ok) throw new Error("Failed to clear academy");
+  return response.json();
+};
+
+export interface FraudCheckResponse {
+  entity: string;
+  status: "risk" | "safe";
+  score: number;
+  flags: string[];
+  verified: boolean;
+  lastChecked: string;
+  summary?: string;
+}
+
+export const checkFraud = async (entity: string, type: "investor" | "startup"): Promise<FraudCheckResponse> => {
+  const url = `${API_BASE_URL}/fraud/check?q=${encodeURIComponent(entity)}&type=${type}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+     const error = await response.json();
+     throw new Error(error.detail || "Fraud check failed");
+  }
+  return response.json();
+};
+
+export interface FraudAlert {
+  title: string;
+  type: string;
+  date: string;
+  risk: string;
+}
+
+export const getFraudAlerts = async (): Promise<FraudAlert[]> => {
+  const response = await fetch(`${API_BASE_URL}/fraud/alerts`);
+  if (!response.ok) return [];
   return response.json();
 };

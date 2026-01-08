@@ -5,7 +5,6 @@ import {
   LayoutDashboard,
   Search,
   MessageSquare,
-  PlayCircle,
   Globe,
   Settings,
   LogOut,
@@ -14,6 +13,7 @@ import {
   Sun,
   ChevronUp,
   Scale,
+  ShieldAlert,
 } from "lucide-react";
 import { LogoutConfirmDialog } from "./LogoutConfirmDialog";
 import { useToast } from "../../hooks/use-toast";
@@ -64,6 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
     { icon: Search, label: "Analyze", path: "/analyze" },
+    { icon: ShieldAlert, label: "Fraud Check", path: "/fraud-detection" },
     { icon: Scale, label: "Intelligence Hub", path: "/intelligence-hub" },
     { icon: MessageSquare, label: "Q & A", path: "/chat" },
     { icon: Settings, label: "Settings", path: "/settings" },
