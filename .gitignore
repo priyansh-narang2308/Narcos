@@ -35,3 +35,6 @@ backend/venv
 # Docker images (submission)
 *.tar
 submission/
+# Ignore archives and DBs added by local build
+submission/*.tar
+backend/db/
